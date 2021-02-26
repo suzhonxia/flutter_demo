@@ -1,6 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_demo/r.dart';
 import 'package:flutter_demo/tool/screenSize.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:date_format/date_format.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -12,6 +16,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  EasyRefreshController _controller = EasyRefreshController();
+
   @override
   void initState() {
     super.initState();
@@ -32,25 +38,67 @@ class _HomePageState extends State<HomePage> {
             children: [
               _createSearchBar(),
               Expanded(
-                child: Container(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        _createBanner(),
-                        Container(
-                          width: ScreenSize.getScreenWidth(context),
-                          height: 1300,
-                          child: Center(
-                            child: Text("滑动区域"),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                child: EasyRefresh(
+                  controller: _controller,
+                  header: BallPulseHeader(),
+                  onRefresh: () async {},
+                  child: _createHomeBody(),
                 ),
               )
             ],
           )
+        ],
+      ),
+    );
+  }
+
+  Widget _createHomeBody() {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          _createBanner(),
+          _createNotice(),
+          _createCategory(),
+          _createPoster(),
+          _createPremium(),
+          _createSystem(),
+          _createPart(),
+          _createEduc(),
+          _createMatch(),
+          _createNews(),
+          _createEndTip(),
+        ],
+      ),
+    );
+  }
+
+  Widget _createTitleBar(String title, String more) {
+    return Container(
+      margin: EdgeInsets.only(top: 15),
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Text(title, style: TextStyle(fontSize: 18, color: Color(0xFF404040), fontWeight: FontWeight.bold)),
+          ),
+          Expanded(child: Container()),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: more.isNotEmpty
+                ? Text.rich(
+                    TextSpan(children: [
+                      TextSpan(text: more),
+                      WidgetSpan(
+                        child: Container(
+                          margin: EdgeInsets.only(left: 4),
+                          child: Image.asset(R.assetsImgIconHomeMore, width: 10),
+                        ),
+                      )
+                    ]),
+                    style: TextStyle(fontSize: 15, color: Color(0xFFFFC613)),
+                  )
+                : Container(),
+          ),
         ],
       ),
     );
@@ -93,6 +141,127 @@ class _HomePageState extends State<HomePage> {
     return Container(
       height: 200,
       color: Colors.red,
+    );
+  }
+
+  Widget _createNotice() {
+    return Container(
+      margin: EdgeInsets.only(top: 6),
+      padding: EdgeInsets.only(left: 15, right: 15, top: 8, bottom: 8),
+      child: Row(
+        children: [
+          Image.asset(R.assetsImgIconHomeNotice, width: 20, height: 20),
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.only(left: 6),
+              child: Text.rich(
+                TextSpan(children: [
+                  TextSpan(text: "公告:课程总数为"),
+                  TextSpan(text: "217", style: TextStyle(color: Color(0xFFFC650D))),
+                  TextSpan(text: "个，截止到${formatDate(DateTime.now(), [yyyy, '年', mm, '月', dd, '日'])}"),
+                ]),
+                textAlign: TextAlign.left,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 14, color: Color(0xFF404040)),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _createCategory() {
+    var item = (String src, String text) {
+      return Expanded(
+        child: Container(
+          padding: EdgeInsets.only(top: 12, bottom: 10),
+          child: Column(
+            children: [
+              Container(padding: EdgeInsets.all(6), child: Image.asset(src, width: 55)),
+              Text(text, style: TextStyle(fontSize: 14, color: Color(0xFF666666)))
+            ],
+          ),
+        ),
+        flex: 1,
+      );
+    };
+
+    return Row(
+      children: [
+        item(R.assetsImgIconCourse1, "磁力片"),
+        item(R.assetsImgIconCourse2, "大颗粒"),
+        item(R.assetsImgIconCourse3, "小颗粒"),
+        item(R.assetsImgIconCourse4, "编程")
+      ],
+    );
+  }
+
+  Widget _createPoster() {
+    return Container(
+      margin: EdgeInsets.only(top: 15, left: 15, right: 15),
+      child: Image.asset(R.assetsImgImgPoster),
+    );
+  }
+
+  Widget _createPremium() {
+    return Column(
+      children: [
+        _createTitleBar("精品付费课", "查看全部"),
+      ],
+    );
+  }
+
+  Widget _createSystem() {
+    return Column(
+      children: [
+        _createTitleBar("课程体系", ""),
+      ],
+    );
+  }
+
+  Widget _createPart() {
+    return Column(
+      children: [
+        _createTitleBar("配件体系课", "查看全部"),
+      ],
+    );
+  }
+
+  Widget _createEduc() {
+    return Column(
+      children: [
+        _createTitleBar("亲职教育", ""),
+      ],
+    );
+  }
+
+  Widget _createMatch() {
+    return Column(
+      children: [
+        _createTitleBar("竞赛", "查看全部"),
+      ],
+    );
+  }
+
+  Widget _createNews() {
+    return Column(
+      children: [
+        _createTitleBar("学院资讯", "更多"),
+      ],
+    );
+  }
+
+  Widget _createEndTip() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      child: Row(
+        children: [
+          Expanded(child: Container(height: 1, color: Color(0xFFF1F1F1), margin: EdgeInsets.only(right: 8))),
+          Text("您已经到了世界的边缘了哦!", style: TextStyle(fontSize: 14, color: Color(0xFFD1D1D1))),
+          Expanded(child: Container(height: 1, color: Color(0xFFF1F1F1), margin: EdgeInsets.only(left: 8))),
+        ],
+      ),
     );
   }
 }

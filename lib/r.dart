@@ -13,6 +13,8 @@ class R {
   static final String assetsImgIconCourseDate = 'assets/img/icon_course_date.png';
   /// ![](http://127.0.0.1:2222/assets/img/icon_home_message.png)
   static final String assetsImgIconHomeMessage = 'assets/img/icon_home_message.png';
+  /// ![](http://127.0.0.1:2222/assets/img/icon_home_more.png)
+  static final String assetsImgIconHomeMore = 'assets/img/icon_home_more.png';
   /// ![](http://127.0.0.1:2222/assets/img/icon_home_notice.png)
   static final String assetsImgIconHomeNotice = 'assets/img/icon_home_notice.png';
   /// ![](http://127.0.0.1:2222/assets/img/icon_home_scan.png)
