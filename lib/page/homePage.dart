@@ -232,9 +232,72 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _createEduc() {
+    var item = (int index, String title, String readNum, String cover) {
+      return Card(
+        elevation: 2,
+        color: Colors.white,
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
+        margin: EdgeInsets.only(
+          top: 4,
+          left: index == 0 ? 15 : 0,
+          right: 15,
+          bottom: 4,
+        ),
+        child: Container(
+          padding: EdgeInsets.all(15),
+          child: Row(
+            children: [
+              Container(
+                // 屏幕宽度 * 0.6 - 封面宽度 - 间距
+                width: ScreenSize.getScreenWidth(context) * 0.6 - 68 - 45,
+                height: 68,
+                child: Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 15, color: Color(0xFF404040), fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Spacer(),
+                    Container(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        readNum,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 13, color: Color(0xFF999999)),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 15),
+                child: ClipRRect(child: Image.asset(cover, width: 68), borderRadius: BorderRadius.circular(5)),
+              ),
+            ],
+          ),
+        ),
+      );
+    };
+
     return Column(
       children: [
         _createTitleBar("亲职教育", ""),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              item(0, "【2-3岁】磁力片亲职教育课程", "3.6万人学习过", R.assetsImgImgHomeEduc1),
+              item(1, "【3-4岁】磁力片亲职教育课程", "1.9万人学习过", R.assetsImgImgHomeEduc2),
+              item(2, "【4-6岁】磁力片亲职教育课程", "1.4万人学习过", R.assetsImgImgHomeEduc3),
+            ],
+          ),
+        ),
       ],
     );
   }
