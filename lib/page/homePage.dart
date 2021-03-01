@@ -240,9 +240,60 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _createMatch() {
+    var item = (String cover, String title, String status) {
+      return Container(
+        margin: EdgeInsets.only(top: 15),
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 30),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(topLeft: Radius.circular(6), topRight: Radius.circular(6)),
+                    child: Image.asset(cover, width: double.infinity),
+                  ),
+                ),
+                Container(
+                  height: 18,
+                  margin: const EdgeInsets.only(left: 30),
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFE5E5E5),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(6),
+                      topRight: Radius.circular(10),
+                      bottomLeft: Radius.circular(0),
+                      bottomRight: Radius.circular(10),
+                    ),
+                  ),
+                  child: Text(status, style: TextStyle(fontSize: 12, color: Color(0xFF404040))),
+                )
+              ],
+            ),
+            Card(
+              color: Colors.white,
+              elevation: 2,
+              margin: EdgeInsets.only(left: 15, right: 15),
+              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(15),
+                child: Text(
+                  title,
+                  style: TextStyle(fontSize: 16, color: Color(0xFF404040), fontWeight: FontWeight.bold),
+                ),
+              ),
+            )
+          ],
+        ),
+      );
+    };
+
     return Column(
       children: [
         _createTitleBar("竞赛", "查看全部"),
+        item(R.assetsImgImgHomeContest, "创意造型PK", "海选已结束"),
       ],
     );
   }
@@ -317,7 +368,7 @@ class _HomePageState extends State<HomePage> {
         Card(
           color: Colors.white,
           elevation: 2,
-          margin: const EdgeInsets.all(15),
+          margin: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
           child: Column(
             children: [
