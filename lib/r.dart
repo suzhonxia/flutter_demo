@@ -19,6 +19,8 @@ class R {
   static final String assetsImgIconHomeNotice = 'assets/img/icon_home_notice.png';
   /// ![](http://127.0.0.1:2222/assets/img/icon_home_scan.png)
   static final String assetsImgIconHomeScan = 'assets/img/icon_home_scan.png';
+  /// ![](http://127.0.0.1:2222/assets/img/icon_news_top.png)
+  static final String assetsImgIconNewsTop = 'assets/img/icon_news_top.png';
   /// ![](http://127.0.0.1:2222/assets/img/icon_read.png)
   static final String assetsImgIconRead = 'assets/img/icon_read.png';
   /// ![](http://127.0.0.1:2222/assets/img/icon_search.png)

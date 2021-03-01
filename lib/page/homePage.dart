@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
               Expanded(
                 child: EasyRefresh(
                   controller: _controller,
-                  header: BallPulseHeader(),
+                  header: MaterialHeader(),
                   onRefresh: () async {},
                   child: _createHomeBody(),
                 ),
@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _createTitleBar(String title, String more) {
+  Widget _createTitleBar(String title, String more, {Function moreClick}) {
     return Container(
       margin: EdgeInsets.only(top: 15),
       child: Row(
@@ -82,22 +82,25 @@ class _HomePageState extends State<HomePage> {
             child: Text(title, style: TextStyle(fontSize: 18, color: Color(0xFF404040), fontWeight: FontWeight.bold)),
           ),
           Expanded(child: Container()),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: more.isNotEmpty
-                ? Text.rich(
-                    TextSpan(children: [
-                      TextSpan(text: more),
-                      WidgetSpan(
-                        child: Container(
-                          margin: EdgeInsets.only(left: 4),
-                          child: Image.asset(R.assetsImgIconHomeMore, width: 10),
-                        ),
-                      )
-                    ]),
-                    style: TextStyle(fontSize: 15, color: Color(0xFFFFC613)),
-                  )
-                : Container(),
+          GestureDetector(
+            onTap: moreClick,
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: more.isNotEmpty
+                  ? Text.rich(
+                      TextSpan(children: [
+                        TextSpan(text: more),
+                        WidgetSpan(
+                          child: Container(
+                            margin: EdgeInsets.only(left: 4),
+                            child: Image.asset(R.assetsImgIconHomeMore, width: 10),
+                          ),
+                        )
+                      ]),
+                      style: TextStyle(fontSize: 15, color: Color(0xFFFFC613)),
+                    )
+                  : Container(),
+            ),
           ),
         ],
       ),
@@ -245,9 +248,85 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _createNews() {
+    var item = (String title, bool isTop, String date, String readNum) {
+      return Container(
+        padding: EdgeInsets.all(15),
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              child: Text.rich(
+                TextSpan(children: [
+                  isTop
+                      ? WidgetSpan(
+                          child: Container(
+                            margin: EdgeInsets.only(right: 4),
+                            child: Image.asset(R.assetsImgIconNewsTop, width: 40),
+                          ),
+                          alignment: PlaceholderAlignment.middle,
+                        )
+                      : TextSpan(text: ""),
+                  TextSpan(
+                    text: title,
+                    style: TextStyle(color: Color(0xFF404040), fontSize: 15),
+                  )
+                ]),
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.start,
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 8),
+              child: Row(
+                children: [
+                  Text.rich(
+                    TextSpan(children: [
+                      WidgetSpan(
+                        child: Container(
+                          margin: EdgeInsets.only(right: 2),
+                          child: Image.asset(R.assetsImgIconCourseDate, width: 15),
+                        ),
+                      ),
+                      TextSpan(text: date, style: TextStyle(color: Color(0xFF999999), fontSize: 14)),
+                    ]),
+                  ),
+                  Spacer(),
+                  Text.rich(
+                    TextSpan(children: [
+                      WidgetSpan(
+                        child: Container(
+                          margin: EdgeInsets.only(right: 2),
+                          child: Image.asset(R.assetsImgIconRead, width: 15),
+                        ),
+                      ),
+                      TextSpan(text: readNum, style: TextStyle(color: Color(0xFF999999), fontSize: 14)),
+                    ]),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    };
+
     return Column(
       children: [
         _createTitleBar("学院资讯", "更多"),
+        Card(
+          color: Colors.white,
+          elevation: 2,
+          margin: const EdgeInsets.all(15),
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
+          child: Column(
+            children: [
+              item("关于磁力片边缘飞边瑕疵的工艺说明疵的工艺说明疵的工艺说明", true, "2020-02-27", "11674"),
+              item("App小程序正式启用通知", false, "2019-12-09", "3157"),
+              item("App使用方法", false, "2019-11-05", "1374"),
+            ],
+          ),
+        ),
       ],
     );
   }
