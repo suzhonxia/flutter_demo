@@ -87,22 +87,46 @@ class _HomePageState extends State<HomePage> {
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: more.isNotEmpty
-                  ? Text.rich(
-                      TextSpan(children: [
+                  ? Text.rich(TextSpan(
+                      style: TextStyle(fontSize: 15, color: Color(0xFFFFC613)),
+                      children: [
                         TextSpan(text: more),
                         WidgetSpan(
+                          alignment: PlaceholderAlignment.middle,
                           child: Container(
-                            margin: EdgeInsets.only(left: 4),
+                            margin: EdgeInsets.only(left: 6),
                             child: Image.asset(R.assetsImgIconHomeMore, width: 10),
                           ),
                         )
-                      ]),
-                      style: TextStyle(fontSize: 15, color: Color(0xFFFFC613)),
-                    )
+                      ],
+                    ))
                   : Container(),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _createBottomMore(String more, {Function moreClick}) {
+    return GestureDetector(
+      onTap: moreClick,
+      child: Container(
+        width: 150,
+        height: 35,
+        alignment: Alignment.center,
+        margin: EdgeInsets.only(top: 15),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(18), color: Color(0xFFFFF3D0)),
+        child: Text.rich(TextSpan(
+          style: TextStyle(color: Color(0xFFFFC613), fontSize: 15),
+          children: [
+            TextSpan(text: more),
+            WidgetSpan(
+              alignment: PlaceholderAlignment.middle,
+              child: Container(margin: EdgeInsets.only(left: 6), child: Image.asset(R.assetsImgIconHomeMore, width: 10)),
+            ),
+          ],
+        )),
       ),
     );
   }
@@ -216,9 +240,65 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _createSystem() {
+    var item = (int index, String title, String cover, List<String> tagList) {
+      return Card(
+        elevation: 2,
+        color: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        margin: EdgeInsets.only(top: index == 0 ? 0 : 15, left: 15, right: 15),
+        child: Container(
+          padding: EdgeInsets.all(15),
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: Image.asset(cover, width: 115, height: 64),
+              ),
+              Container(
+                height: 64,
+                margin: EdgeInsets.only(left: 15),
+                child: Column(
+                  children: [
+                    Container(
+                      width: 170,
+                      child: Text(
+                        title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          height: 1.2,
+                          fontSize: 15,
+                          color: Color(0xFF404040),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Spacer(),
+                    Container(
+                      width: 170,
+                      height: 20,
+                      margin: EdgeInsets.only(top: 8),
+                      child: Wrap(
+                        spacing: 6.0,
+                        children: tagList.map((e) => _createCourseTag(e)).toList(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    };
+
     return Column(
       children: [
         _createTitleBar("课程体系", ""),
+        item(0, "融合积木 手工 亲子游戏的趣味立体式阅读课", R.assetsImgImgHomeSeries1, ["亲子阅读", "益智建构", "绘本"]),
+        item(1, "科学探索全能专家课 实现静态到电动全覆盖", R.assetsImgImgHomeSeries2, ["科学启蒙", "适用314件"]),
+        item(2, "大颗粒编程启蒙学习课程 开发思维潜能", R.assetsImgImgHomeSeries3, ["153件", "实物编程"]),
+        _createBottomMore("查看全部"),
       ],
     );
   }
@@ -240,7 +320,7 @@ class _HomePageState extends State<HomePage> {
                   title,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 15, color: Color(0xFF404040), fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 15, color: Color(0xFF404040), fontWeight: FontWeight.bold, height: 1.2),
                 ),
               ),
               Container(
@@ -272,7 +352,7 @@ class _HomePageState extends State<HomePage> {
             crossAxisCount: 2,
             mainAxisSpacing: 12,
             crossAxisSpacing: 12,
-            childAspectRatio: 0.853,
+            childAspectRatio: 0.8675,
           ),
           itemBuilder: (BuildContext context, int index) {
             if (index == 0) {
@@ -500,19 +580,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _createEndTip() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15),
-      child: Row(
-        children: [
-          Expanded(child: Container(height: 1, color: Color(0xFFF1F1F1), margin: EdgeInsets.only(right: 8))),
-          Text("您已经到了世界的边缘了哦!", style: TextStyle(fontSize: 14, color: Color(0xFFD1D1D1))),
-          Expanded(child: Container(height: 1, color: Color(0xFFF1F1F1), margin: EdgeInsets.only(left: 8))),
-        ],
-      ),
-    );
-  }
-
   Widget _createCourseTag(String tag) {
     return Container(
       height: 20,
@@ -528,6 +595,19 @@ class _HomePageState extends State<HomePage> {
         color: Color(0xFFFFF4D0),
       ),
       child: Text(tag, style: TextStyle(fontSize: 10, color: Color(0xFFFFA200))),
+    );
+  }
+
+  Widget _createEndTip() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      child: Row(
+        children: [
+          Expanded(child: Container(height: 1, color: Color(0xFFF1F1F1), margin: EdgeInsets.only(right: 8))),
+          Text("您已经到了世界的边缘了哦!", style: TextStyle(fontSize: 14, color: Color(0xFFD1D1D1))),
+          Expanded(child: Container(height: 1, color: Color(0xFFF1F1F1), margin: EdgeInsets.only(left: 8))),
+        ],
+      ),
     );
   }
 }
