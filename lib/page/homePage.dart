@@ -123,7 +123,8 @@ class _HomePageState extends State<HomePage> {
             TextSpan(text: more),
             WidgetSpan(
               alignment: PlaceholderAlignment.middle,
-              child: Container(margin: EdgeInsets.only(left: 6), child: Image.asset(R.assetsImgIconHomeMore, width: 10)),
+              child:
+                  Container(margin: EdgeInsets.only(left: 6), child: Image.asset(R.assetsImgIconHomeMore, width: 10)),
             ),
           ],
         )),
@@ -232,9 +233,90 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _createPremium() {
+    var item = (int index, String title, String label, String cover, String salePrice, String originalPrice) {
+      return Container(
+        margin: EdgeInsets.only(top: index == 0 ? 0 : 15, left: 15, right: 15),
+        child: Stack(
+          children: [
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 15),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(topLeft: Radius.circular(6), topRight: Radius.circular(6)),
+                child: Image.asset(cover, width: double.infinity),
+              ),
+            ),
+            Container(
+              height: 18,
+              margin: const EdgeInsets.only(left: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              decoration: BoxDecoration(
+                color: Color(0xFFED4F3E),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(6),
+                  topRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10),
+                ),
+              ),
+              child: Text(label, style: TextStyle(fontSize: 12, color: Colors.white)),
+            ),
+            Card(
+              elevation: 2,
+              color: Colors.white,
+              margin: EdgeInsets.only(top: (ScreenSize.getScreenWidth(context) - 60) * 0.45),
+              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
+              child: Container(
+                width: double.infinity,
+                alignment: Alignment.topLeft,
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+                child: Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      child: Text(
+                        title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 15, color: Color(0xFF404040), fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      margin: EdgeInsets.only(top: 6),
+                      child: Text.rich(TextSpan(
+                        children: [
+                          TextSpan(
+                              text: salePrice,
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              )),
+                          WidgetSpan(child: Container(width: 10)),
+                          TextSpan(
+                              text: originalPrice,
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Color(0xFF999999),
+                                decoration: TextDecoration.lineThrough,
+                              )),
+                        ],
+                      )),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+      );
+    };
+
     return Column(
       children: [
         _createTitleBar("精品付费课", "查看全部"),
+        item(0, "磁力星球 早教课", "早教益智", R.assetsImgImgHomePremium1, "¥199", "¥298"),
+        item(1, "大颗粒创意机械课 探索机械结构原理", "创意机械", R.assetsImgImgHomePremium2, "¥297", "¥699"),
       ],
     );
   }
