@@ -166,9 +166,35 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _createBanner() {
+    var size = 5;
+    var space = 16.0;
+    var item = (int index, String cover) {
+      return Container(
+        margin: EdgeInsets.only(
+          left: index == 0 ? space : space / 2,
+          right: index == size - 1 ? space : 0,
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(5),
+          child: Image.asset(cover, width: ScreenSize.getScreenWidth(context) - space * 2),
+        ),
+      );
+    };
+
     return Container(
-      height: 200,
-      color: Colors.red,
+      padding: EdgeInsets.symmetric(vertical: 15),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            item(0, R.assetsImgImgBanner1),
+            item(1, R.assetsImgImgBanner2),
+            item(2, R.assetsImgImgBanner1),
+            item(3, R.assetsImgImgBanner2),
+            item(4, R.assetsImgImgBanner1),
+          ],
+        ),
+      ),
     );
   }
 
