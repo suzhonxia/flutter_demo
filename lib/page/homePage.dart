@@ -224,9 +224,64 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _createPart() {
+    var item = (String title, String cover, List<String> tagList) {
+      return Card(
+        elevation: 2,
+        color: Colors.white,
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
+        child: Container(
+          padding: EdgeInsets.all(15),
+          child: Column(
+            children: [
+              ClipRRect(child: Image.asset(cover), borderRadius: BorderRadius.circular(5)),
+              Container(
+                margin: EdgeInsets.only(top: 12),
+                child: Text(
+                  title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: 15, color: Color(0xFF404040), fontWeight: FontWeight.bold),
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                height: 20,
+                margin: EdgeInsets.only(top: 8),
+                child: Wrap(
+                  spacing: 6.0,
+                  children: tagList.map((e) => _createCourseTag(e)).toList(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    };
+
     return Column(
       children: [
         _createTitleBar("配件体系课", "查看全部"),
+        GridView.builder(
+          itemCount: 2,
+          padding: EdgeInsets.only(top: 0, left: 15, right: 15),
+          // 内容适配，不加则高度无限
+          shrinkWrap: true,
+          // 屏蔽GridView 内部滑动
+          physics: NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 12,
+            crossAxisSpacing: 12,
+            childAspectRatio: 0.853,
+          ),
+          itemBuilder: (BuildContext context, int index) {
+            if (index == 0) {
+              return item("酷卡侠 电动编程主机 学习编程", R.assetsImgImgHomePart1, ["实物编程", "逻辑思维", "计算机思维"]);
+            } else {
+              return item("酷卡侠电机家族学习课程", R.assetsImgImgHomePart2, ["动力机械", "电动工程"]);
+            }
+          },
+        ),
       ],
     );
   }
@@ -455,6 +510,24 @@ class _HomePageState extends State<HomePage> {
           Expanded(child: Container(height: 1, color: Color(0xFFF1F1F1), margin: EdgeInsets.only(left: 8))),
         ],
       ),
+    );
+  }
+
+  Widget _createCourseTag(String tag) {
+    return Container(
+      height: 20,
+      width: (tag.length * 10 + 16.0),
+      alignment: Alignment.center,
+      padding: EdgeInsets.symmetric(horizontal: 8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(10),
+          bottomLeft: Radius.circular(10),
+          bottomRight: Radius.circular(10),
+        ),
+        color: Color(0xFFFFF4D0),
+      ),
+      child: Text(tag, style: TextStyle(fontSize: 10, color: Color(0xFFFFA200))),
     );
   }
 }
