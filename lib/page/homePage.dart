@@ -219,12 +219,8 @@ class _HomePageState extends State<HomePage> {
     };
 
     return Listener(
-      onPointerUp: (PointerUpEvent event) {
-        handleTouch();
-      },
-      onPointerCancel: (PointerCancelEvent event) {
-        handleTouch();
-      },
+      onPointerUp: (PointerUpEvent event) => handleTouch(),
+      onPointerCancel: (PointerCancelEvent event) => handleTouch(),
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 15),
         child: SingleChildScrollView(
