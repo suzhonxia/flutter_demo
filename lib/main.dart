@@ -39,7 +39,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int currentIndex = 0;
-  final pages = [HomePage(), EmptyPage(titles[1]), EmptyPage(titles[2]), EmptyPage(titles[3])];
+  final pages = [HomePage(), EmptyPage(title: titles[1]), EmptyPage(title: titles[2]), EmptyPage(title: titles[3])];
   final bottomNavItems = [
     BottomNavigationBarItem(icon: Icon(Icons.home), label: titles[0]),
     BottomNavigationBarItem(icon: Icon(Icons.book), label: titles[1]),
@@ -59,14 +59,13 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
-      bottomNavigationBar: createNavBar(),
-      body: pages[currentIndex],
+      bottomNavigationBar: _createNavBar(),
+      body: _createPageBody(),
     );
   }
 
-  BottomNavigationBar createNavBar() {
+  BottomNavigationBar _createNavBar() {
     return BottomNavigationBar(
       items: bottomNavItems,
       currentIndex: currentIndex,
@@ -77,9 +76,14 @@ class _MainPageState extends State<MainPage> {
       unselectedIconTheme: IconThemeData(color: Colors.black, size: 24),
       selectedLabelStyle: TextStyle(color: Colors.blue, fontSize: 12),
       unselectedLabelStyle: TextStyle(color: Colors.black, fontSize: 12),
-      onTap: (index) {
-        _changePage(index);
-      },
+      onTap: _changePage,
+    );
+  }
+
+  Widget _createPageBody() {
+    return IndexedStack(
+      index: currentIndex,
+      children: pages,
     );
   }
 
