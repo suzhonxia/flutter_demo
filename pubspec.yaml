@@ -65,6 +65,9 @@ flutter:
     - assets/img/icon_search.png
     - assets/img/img_banner_1.png
     - assets/img/img_banner_2.jpg
+    - assets/img/img_banner_3.jpg
+    - assets/img/img_banner_4.jpg
+    - assets/img/img_banner_5.jpg
     - assets/img/img_home_contest.jpg
     - assets/img/img_home_educ_1.png
     - assets/img/img_home_educ_2.png

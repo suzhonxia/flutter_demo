@@ -29,6 +29,12 @@ class R {
   static final String assetsImgImgBanner1 = 'assets/img/img_banner_1.png';
   /// ![](http://127.0.0.1:2222/assets/img/img_banner_2.jpg)
   static final String assetsImgImgBanner2 = 'assets/img/img_banner_2.jpg';
+  /// ![](http://127.0.0.1:2222/assets/img/img_banner_3.jpg)
+  static final String assetsImgImgBanner3 = 'assets/img/img_banner_3.jpg';
+  /// ![](http://127.0.0.1:2222/assets/img/img_banner_4.jpg)
+  static final String assetsImgImgBanner4 = 'assets/img/img_banner_4.jpg';
+  /// ![](http://127.0.0.1:2222/assets/img/img_banner_5.jpg)
+  static final String assetsImgImgBanner5 = 'assets/img/img_banner_5.jpg';
   /// ![](http://127.0.0.1:2222/assets/img/img_home_contest.jpg)
   static final String assetsImgImgHomeContest = 'assets/img/img_home_contest.jpg';
   /// ![](http://127.0.0.1:2222/assets/img/img_home_educ_1.png)

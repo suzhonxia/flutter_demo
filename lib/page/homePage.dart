@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_demo/r.dart';
 import 'package:flutter_demo/tool/screenSize.dart';
+import 'package:flutter_demo/widget/banner.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:date_format/date_format.dart';
 
@@ -166,78 +167,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _createBanner() {
-    var size = 5;
-    var space = 16.0;
-    var itemWidth = ScreenSize.getScreenWidth(context) - space * 2;
-    var item = (int index, String cover) {
-      return Container(
-        margin: EdgeInsets.only(
-          left: index == 0 ? space : space / 2,
-          right: index == size - 1 ? space : 0,
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(5),
-          child: Image.asset(cover, width: itemWidth),
-        ),
-      );
-    };
-
-    var direction = 0; // > 0 从右往左, < 0 从左往右
-    var lastScrolledX = 0;
-    var _controller = new ScrollController();
-    _controller.addListener(() {
-      var scrolledX = _controller.offset.round();
-
-      if (scrolledX != lastScrolledX) {
-        direction = scrolledX - lastScrolledX;
-        lastScrolledX = scrolledX;
-      }
-    });
-
-    var handleTouch = () {
-      var scrolledX = _controller.offset.round();
-      var distance = itemWidth + space / 2;
-      var index = scrolledX ~/ distance;// 屏幕中显示的最小的索引
-      var offsetX = scrolledX % distance;
-
-      print("onScrolled direction = $direction, offsetX = $offsetX, distance = $distance, index = $index");
-
-      if (direction > 0) {
-        // 往下一个滑动，如果滑动距离超过item尺寸的4/1，则滑动到下一个
-        if (offsetX > (distance / 4)) {
-          _controller.animateTo((index + 1) * distance, duration: Duration(milliseconds: 300), curve: Curves.ease);
-        } else {
-          _controller.animateTo(index * distance, duration: Duration(milliseconds: 300), curve: Curves.ease);
-        }
-      } else if (direction < 0) {
-        if (offsetX > (distance / 4 * 3)) {
-          _controller.animateTo((index + 1) * distance, duration: Duration(milliseconds: 300), curve: Curves.ease);
-        } else {
-          _controller.animateTo(index * distance, duration: Duration(milliseconds: 300), curve: Curves.ease);
-        }
-      }
-    };
-
-    return Listener(
-      onPointerUp: (PointerUpEvent event) => handleTouch(),
-      onPointerCancel: (PointerCancelEvent event) => handleTouch(),
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 15),
-        child: SingleChildScrollView(
-          controller: _controller,
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              item(0, R.assetsImgImgBanner1),
-              item(1, R.assetsImgImgBanner2),
-              item(2, R.assetsImgImgBanner1),
-              item(3, R.assetsImgImgBanner2),
-              item(4, R.assetsImgImgBanner1),
-            ],
-          ),
-        ),
-      ),
-    );
+    return SBanner(bannerList: [
+      R.assetsImgImgBanner1,
+      // R.assetsImgImgBanner2,
+      // R.assetsImgImgBanner3,
+      // R.assetsImgImgBanner4,
+      // R.assetsImgImgBanner5,
+    ]);
   }
 
   Widget _createNotice() {
