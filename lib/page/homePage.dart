@@ -169,10 +169,10 @@ class _HomePageState extends State<HomePage> {
   Widget _createBanner() {
     return SBanner(bannerList: [
       R.assetsImgImgBanner1,
-      // R.assetsImgImgBanner2,
-      // R.assetsImgImgBanner3,
-      // R.assetsImgImgBanner4,
-      // R.assetsImgImgBanner5,
+      R.assetsImgImgBanner2,
+      R.assetsImgImgBanner3,
+      R.assetsImgImgBanner4,
+      R.assetsImgImgBanner5,
     ]);
   }
 
