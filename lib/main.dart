@@ -39,7 +39,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int currentIndex = 0;
-  final pages = [HomePage(), EmptyPage(title: titles[1]), EmptyPage(title: titles[2]), EmptyPage(title: titles[3])];
+  final pages = [HomePage(), EmptyPage(titles[1]), EmptyPage(titles[2]), EmptyPage(titles[3])];
   final bottomNavItems = [
     BottomNavigationBarItem(icon: Icon(Icons.home), label: titles[0]),
     BottomNavigationBarItem(icon: Icon(Icons.book), label: titles[1]),
