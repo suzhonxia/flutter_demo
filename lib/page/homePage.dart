@@ -401,6 +401,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               ClipRRect(child: Image.asset(cover), borderRadius: BorderRadius.circular(5)),
               Container(
+                alignment: Alignment.topLeft,
                 margin: EdgeInsets.only(top: 12),
                 child: Text(
                   title,
@@ -409,6 +410,7 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(fontSize: 15, color: Color(0xFF404040), fontWeight: FontWeight.bold, height: 1.2),
                 ),
               ),
+              Spacer(),
               Container(
                 width: double.infinity,
                 height: 20,
@@ -444,7 +446,7 @@ class _HomePageState extends State<HomePage> {
             if (index == 0) {
               return item("酷卡侠 电动编程主机 学习编程", R.assetsImgImgHomePart1, ["实物编程", "逻辑思维", "计算机思维"]);
             } else {
-              return item("酷卡侠电机家族学习课程", R.assetsImgImgHomePart2, ["动力机械", "电动工程"]);
+              return item("酷卡侠电机", R.assetsImgImgHomePart2, ["动力机械", "电动工程"]);
             }
           },
         ),
