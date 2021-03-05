@@ -42,7 +42,7 @@ class _BannerState extends State<SBanner> {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(5),
-          child: Image.asset(cover, width: itemWidth, height: itemHeight, fit: BoxFit.fitWidth),
+          child: Image.asset(cover, width: itemWidth, height: itemHeight, fit: BoxFit.cover),
         ),
       );
     };

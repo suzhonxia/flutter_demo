@@ -38,7 +38,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int currentIndex = 0;
+  int _currentIndex = 0;
+  PageController _pageController;
   final pages = [HomePage(), EmptyPage(titles[1]), EmptyPage(titles[2]), EmptyPage(titles[3])];
   final bottomNavItems = [
     BottomNavigationBarItem(icon: Icon(Icons.home), label: titles[0]),
@@ -50,6 +51,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
+    _pageController = PageController(initialPage: _currentIndex);
   }
 
   @override
@@ -68,7 +70,7 @@ class _MainPageState extends State<MainPage> {
   BottomNavigationBar _createNavBar() {
     return BottomNavigationBar(
       items: bottomNavItems,
-      currentIndex: currentIndex,
+      currentIndex: _currentIndex,
       type: BottomNavigationBarType.fixed,
       selectedItemColor: Colors.blue,
       unselectedItemColor: Colors.black,
@@ -81,16 +83,18 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _createPageBody() {
-    return IndexedStack(
-      index: currentIndex,
+    return PageView(
       children: pages,
+      controller: _pageController,
+      physics: NeverScrollableScrollPhysics(),
     );
   }
 
   void _changePage(int index) {
-    if (index != currentIndex) {
+    if (index != _currentIndex) {
       setState(() {
-        currentIndex = index;
+        _currentIndex = index;
+        _pageController.jumpToPage(_currentIndex);
       });
     }
   }
