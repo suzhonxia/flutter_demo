@@ -109,17 +109,22 @@ class _BannerState extends State<SBanner> {
         onPointerDown: (PointerDownEvent event) => _cancelTimer(),
         onPointerUp: (PointerUpEvent event) => handleTouch(),
         onPointerCancel: (PointerCancelEvent event) => handleTouch(),
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 15),
-          child: SingleChildScrollView(
-            controller: _controller,
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: _getBannerList()
-                  .asMap()
-                  .map((index, element) => MapEntry(index, item(index, element)))
-                  .values
-                  .toList(),
+        child: GestureDetector(
+          onTap: () {
+            _initTimer();
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 15),
+            child: SingleChildScrollView(
+              controller: _controller,
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: _getBannerList()
+                    .asMap()
+                    .map((index, element) => MapEntry(index, item(index, element)))
+                    .values
+                    .toList(),
+              ),
             ),
           ),
         ),
