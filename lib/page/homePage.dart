@@ -430,11 +430,16 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
       );
     };
 
+    var itemList = [
+      item("酷卡侠 电动编程主机 学习编程", R.assetsImgImgHomePart1, ["实物编程", "逻辑思维", "计算机思维"]),
+      item("酷卡侠电机", R.assetsImgImgHomePart2, ["动力机械", "电动工程"]),
+    ];
+
     return Column(
       children: [
         _createTitleBar("配件体系课", "查看全部"),
         GridView.builder(
-          itemCount: 2,
+          itemCount: itemList.length,
           padding: EdgeInsets.only(top: 0, left: 15, right: 15),
           // 内容适配，不加则高度无限
           shrinkWrap: true,
@@ -446,13 +451,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
             crossAxisSpacing: 12,
             childAspectRatio: 0.8675,
           ),
-          itemBuilder: (BuildContext context, int index) {
-            if (index == 0) {
-              return item("酷卡侠 电动编程主机 学习编程", R.assetsImgImgHomePart1, ["实物编程", "逻辑思维", "计算机思维"]);
-            } else {
-              return item("酷卡侠电机", R.assetsImgImgHomePart2, ["动力机械", "电动工程"]);
-            }
-          },
+          itemBuilder: (BuildContext context, int index) => itemList[index],
         ),
       ],
     );
